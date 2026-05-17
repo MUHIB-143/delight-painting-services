@@ -56,7 +56,7 @@ function PaintRibbon() {
   }, []);
 
   const geometry = useMemo(() => {
-    return new THREE.TubeGeometry(curve, 300, 0.4, 32, false);
+    return new THREE.TubeGeometry(curve, 150, 0.4, 16, false);
   }, [curve]);
 
   const shaderMaterial = useMemo(() => {
@@ -157,7 +157,7 @@ function FloatingParticles() {
   const pointsRef = useRef<THREE.Points>(null);
 
   const { positions, colors } = useMemo(() => {
-    const count = 300;
+    const count = 150;
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -345,7 +345,8 @@ export default function Scene3D() {
       <ScrollManager />
       <Canvas
         camera={{ position: [0, 0, 8], fov: 50 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, alpha: true, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false }}
       >
         <ambientLight intensity={1.5} />
         <pointLight position={[5, 10, 5]} intensity={2.0} color="#D32F2F" />
