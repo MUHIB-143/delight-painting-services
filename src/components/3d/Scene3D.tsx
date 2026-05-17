@@ -13,6 +13,8 @@ export const globalScrollState = {
 
 function ScrollManager() {
   useEffect(() => {
+    if (typeof window === 'undefined' || !document.body) return;
+    
     gsap.registerPlugin(ScrollTrigger);
     
     const decayInterval = setInterval(() => {
@@ -346,7 +348,8 @@ export default function Scene3D() {
       <Canvas
         camera={{ position: [0, 0, 8], fov: 50 }}
         dpr={[1, 1.5]}
-        gl={{ antialias: false, alpha: true, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false }}
+        gl={{ antialias: false, alpha: true, powerPreference: 'default', failIfMajorPerformanceCaveat: false }}
+        style={{ background: 'transparent' }}
       >
         <ambientLight intensity={1.5} />
         <pointLight position={[5, 10, 5]} intensity={2.0} color="#D32F2F" />
