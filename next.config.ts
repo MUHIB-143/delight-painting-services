@@ -1,12 +1,14 @@
 import type { NextConfig } from "next";
 
+const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
+
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: process.env.NEXT_BASE_PATH || "",
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
+  basePath: isGitHubPages ? "/delight-painting" : "",
 };
 
 export default nextConfig;
