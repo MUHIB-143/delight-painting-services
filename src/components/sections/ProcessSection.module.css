@@ -1,0 +1,127 @@
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-top: 40px;
+}
+
+.line {
+  position: absolute;
+  top: 60px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 0;
+}
+
+.lineGlow {
+  width: 30%;
+  height: 100%;
+  background: var(--accent-gradient);
+  border-radius: 1px;
+  box-shadow: 0 0 20px rgba(0, 163, 255, 0.4);
+  animation: lineMove 4s ease-in-out infinite;
+}
+
+@keyframes lineMove {
+  0% { width: 0%; margin-left: 0%; }
+  50% { width: 100%; margin-left: 0%; }
+  100% { width: 0%; margin-left: 100%; }
+}
+
+.step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.node {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 2px solid var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.nodeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  box-shadow: 0 0 12px var(--accent-blue);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.card {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  transition: all 0.4s;
+  width: 100%;
+}
+
+.card:hover {
+  background: rgba(0, 163, 255, 0.04);
+  border-color: rgba(0, 163, 255, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.number {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent-blue);
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .line { display: none; }
+}
+
+@media (max-width: 600px) {
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,312 @@
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  aspect-ratio: 4/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--accent-blue);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
+              0 0 20px rgba(0, 82, 204, 0.1);
+}
+
+.cardGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 70%, color-mix(in srgb, var(--card-accent, #00A3FF) 8%, transparent) 0%, transparent 50%);
+  pointer-events: none;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+/* MODAL STYLES */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.95);
+  backdrop-filter: blur(15px);
+  z-index: 9999; /* Higher than Navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  animation: fadeIn 0.4s ease;
+  touch-action: none;
+}
+
+.modalContent {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
+  max-width: 1400px;
+  width: 90vw;
+  height: 85vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9), 0 0 50px rgba(49, 130, 206, 0.1);
+  touch-action: auto;
+  overscroll-behavior: contain;
+}
+
+.modalImageWrapper {
+  flex: 0.45;
+  position: relative;
+  height: 100%;
+}
+
+.modalImageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--bg-secondary) 100%), linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.modalTextWrapper {
+  flex: 0.55;
+  padding: 80px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  background: var(--bg-secondary);
+}
+
+.modalIcon {
+  font-size: 72px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 20px rgba(49, 130, 206, 0.6));
+}
+
+.closeBtn {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  background: var(--accent-red);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 6px;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(211, 47, 47, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.closeBtn:hover {
+  transform: scale(1.1) rotate(90deg);
+  background: #FFF;
+  color: var(--accent-red);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+}
+
+.modalTitle {
+  font-family: 'Shojumaru', cursive;
+  font-size: 56px;
+  color: var(--accent-yellow);
+  text-shadow: 0 0 20px rgba(236, 201, 75, 0.4);
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+
+.modalBody {
+  font-size: 20px;
+  max-width: 800px;
+  color: #F8FAFC;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  line-height: 1.8;
+}
+
+@media (max-width: 1200px) {
+  .modalTextWrapper { padding: 60px; }
+  .modalTitle { font-size: 42px; }
+}
+
+@media (max-width: 768px) {
+  .modalContent { 
+    flex-direction: column; 
+    overflow-y: auto; 
+    width: 95vw; 
+    height: 90vh; 
+    border-radius: 20px; 
+  }
+  .modalImageWrapper { width: 100%; height: 40vh; min-height: 40vh; flex: none; }
+  .modalImageOverlay { background: linear-gradient(to bottom, transparent 50%, var(--bg-secondary) 100%); }
+  .modalTextWrapper { padding: 30px 20px; justify-content: flex-start; flex: none; }
+  .modalIcon { font-size: 48px; margin-bottom: 10px; }
+  .modalTitle { font-size: 32px; margin-bottom: 16px; }
+  .modalBody { font-size: 16px; }
+  .closeBtn { top: 15px; right: 15px; width: 45px; height: 45px; font-size: 32px; }
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0.1) 100%);
+  z-index: 1;
+  pointer-events: none;
+  transition: background 0.4s;
+}
+
+.card:hover .cardOverlay {
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 40%, transparent 100%);
+}
+
+.card:hover .cardGlow {
+  opacity: 1;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 2;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.cardNumber {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--card-accent, var(--accent-blue));
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.cardIcon {
+  font-size: 36px;
+  margin-bottom: 4px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.cardDesc {
+  font-size: 13px;
+  color: #E2E8F0;
+  line-height: 1.5;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+
+.card:hover .cardDesc {
+  opacity: 1;
+  max-height: 80px;
+}
+
+.cardFooter {
+  margin-top: 8px;
+}
+
+.learnMore {
+  font-size: 13px;
+  color: var(--card-accent, var(--accent-blue));
+  font-weight: 600;
+  transition: gap 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card:hover .learnMore {
+  gap: 8px;
+}
+
+.cardSheen {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  transition: left 0.8s;
+  pointer-events: none;
+}
+
+.card:hover .cardSheen {
+  left: 150%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s;
+}
+
+.dotActive {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--accent-blue);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    aspect-ratio: 16/10;
+  }
+}
